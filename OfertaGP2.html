@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Коммерческое предложение — бухгалтерское обслуживание</title>
+  <style>
+    :root{
+      --bg-0:#0b1220;
+      --bg-1:#0e1630;
+      --card:#0f1b33cc;
+      --card-2:#0f1b33f2;
+      --stroke: rgba(255,255,255,.10);
+      --stroke-2: rgba(255,255,255,.14);
+      --text:#e8eefc;
+      --muted: rgba(232,238,252,.72);
+      --muted2: rgba(232,238,252,.58);
+
+      --accent-1:#a8d8ff;
+      --accent-2:#c7b7ff;
+      --accent-3:#b4ffd9;
+
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --shadow-soft: 0 12px 30px rgba(0,0,0,.25);
+      --radius: 18px;
+      --radius-lg: 26px;
+
+      --container: 1100px;
+      --gap: 18px;
+
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(168,216,255,.22), transparent 55%),
+        radial-gradient(900px 600px at 80% 25%, rgba(199,183,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 65% 85%, rgba(180,255,217,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      line-height: 1.55;
+      letter-spacing: .2px;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 28px 18px 52px;
+    }
+
+    /* ---------- Header ---------- */
+    .hero{
+      position: relative;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.04)),
+        radial-gradient(900px 220px at 20% 10%, rgba(168,216,255,.25), transparent 60%),
+        radial-gradient(900px 220px at 80% 0%, rgba(199,183,255,.22), transparent 60%),
+        radial-gradient(900px 300px at 70% 110%, rgba(180,255,217,.14), transparent 60%);
+      box-shadow: var(--shadow);
+      padding: 28px 22px 22px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        conic-gradient(from 210deg, rgba(168,216,255,.25), rgba(199,183,255,.25), rgba(180,255,217,.22), rgba(168,216,255,.25));
+      filter: blur(18px);
+      opacity: .35;
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position: relative;
+      display: grid;
+      gap: 14px;
+    }
+
+    .kicker{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      background: rgba(15,27,51,.55);
+      box-shadow: 0 10px 20px rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      box-shadow: 0 0 0 3px rgba(168,216,255,.12);
+    }
+
+    /* Rule 1: gradient header with transparent text effect */
+    h1{
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height: 1.12;
+      letter-spacing: .1px;
+      background: linear-gradient(90deg, rgba(168,216,255,.96), rgba(199,183,255,.92), rgba(180,255,217,.90));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(255,255,255,.10);
+    }
+
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
+      max-width: 78ch; /* 60–90 symbols */
+      font-size: 15.5px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items:center;
+      margin-top: 6px;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke-2);
+      background: linear-gradient(135deg, rgba(168,216,255,.14), rgba(199,183,255,.12));
+      box-shadow: 0 14px 28px rgba(0,0,0,.22);
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+      user-select:none;
+    }
+    .cta:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.28);
+      border-color: rgba(255,255,255,.22);
+    }
+    .cta svg{ opacity:.9 }
+
+    .note{
+      color: var(--muted2);
+      font-size: 13.5px;
+      max-width: 82ch;
+    }
+
+    /* ---------- Layout ---------- */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: var(--gap);
+      margin-top: 18px;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* ---------- Cards ---------- */
+    .card{
+      position: relative;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(15,27,51,.78), rgba(15,27,51,.60));
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+      transition: transform .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease);
+    }
+
+    /* Rule 2: each block hover animation */
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 22px 55px rgba(0,0,0,.35);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(700px 220px at 10% 0%, rgba(168,216,255,.14), transparent 55%),
+        radial-gradient(700px 220px at 90% 10%, rgba(199,183,255,.12), transparent 55%),
+        radial-gradient(700px 260px at 70% 120%, rgba(180,255,217,.10), transparent 55%);
+      opacity: .55;
+      pointer-events:none;
+    }
+
+    .card-inner{
+      position: relative;
+      padding: 18px 18px 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h2{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .2px;
+      color: rgba(232,238,252,.92);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(232,238,252,.86);
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
+
+    .badge strong{ font-weight: 700; }
+    .badge .chip{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+      box-shadow: 0 0 0 3px rgba(199,183,255,.12);
+    }
+
+    .text{
+      color: var(--muted);
+      margin: 0;
+      max-width: 86ch; /* comfortable line length */
+      font-size: 14.5px;
+    }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      display:grid;
+      gap: 7px;
+      font-size: 14.5px;
+    }
+
+    .list li{
+      position: relative;
+      padding-left: 2px;
+    }
+
+    /* Accent markers */
+    .list li::marker{
+      color: rgba(168,216,255,.85);
+    }
+
+    /* ---------- Callouts / highlights ---------- */
+    .callout{
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(168,216,255,.10), rgba(180,255,217,.08));
+      border-radius: 16px;
+      padding: 12px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+    }
+
+    .callout .icon{
+      flex: 0 0 auto;
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .callout p{
+      margin: 0;
+      color: rgba(232,238,252,.86);
+      font-size: 14px;
+      max-width: 80ch;
+    }
+
+    .price{
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .price .amount{
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      line-height: 1.15;
+      background: linear-gradient(90deg, rgba(168,216,255,.95), rgba(199,183,255,.90));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .price .meta{
+      color: var(--muted2);
+      font-size: 13.5px;
+    }
+
+    .mini-grid{
+      display:grid;
+      gap: var(--gap);
+    }
+
+    @media (min-width: 981px){
+      .mini-grid{ position: sticky; top: 16px; }
+    }
+
+    /* ---------- Footer ---------- */
+    .footer{
+      margin-top: 18px;
+      color: rgba(232,238,252,.52);
+      font-size: 12.5px;
+      text-align: center;
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce){
+      .card, .cta { transition: none; }
+      .card:hover, .cta:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero" aria-label="Заголовок коммерческого предложения">
+      <div class="hero-inner">
+        <div class="kicker">
+          <span class="pill"><span class="dot"></span> КП • Абонентское сопровождение</span>
+          <span class="pill">ОСНО • НДС</span>
+          <span class="pill">Формат: удалённо / онлайн</span>
+        </div>
+
+        <h1>Коммерческое предложение на бухгалтерское обслуживание</h1>
+
+        <div class="hero-actions">
+          <a class="cta" href="#price" role="button" aria-label="Перейти к стоимости">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 1v22M5 6h10a4 4 0 010 8H7a4 4 0 000 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Перейти к стоимости
+          </a>
+          <a class="cta" href="#format" role="button" aria-label="Перейти к формату работы">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Формат работы
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="grid" aria-label="Содержание коммерческого предложения">
+      <!-- LEFT: main blocks -->
+      <section class="mini-grid" aria-label="Основные блоки">
+        <!-- 1 -->
+        <article class="card" id="audience">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Для кого услуга</h2>
+              <span class="badge"><span class="chip"></span><strong>Профиль</strong></span>
+            </div>
+
+            <div class="callout" role="note" aria-label="Ключевые параметры">
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2a7 7 0 017 7v2a3 3 0 003 3v2H2v-2a3 3 0 003-3V9a7 7 0 017-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p>
+                Компания на <strong>ОСНО с НДС</strong>, <strong>1 сотрудник</strong> (генеральный директор).
+                Объём документов: <strong>15–20 комплектов документов</strong>.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="card" id="services">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Перечень услуг</h2>
+              <span class="badge"><span class="chip"></span><strong>Состав работ</strong></span>
+            </div>
+
+            <p class="text">В рамках абонентского обслуживания выполняем:</p>
+            <ul class="list">
+              <li>Ведение бухгалтерского и налогового учёта (ОСНО, НДС)</li>
+              <li>Отражение операций по продажам и покупкам</li>
+              <li>Учёт банковских операций</li>
+              <li>Расчёт налогов и контроль сроков платежей</li>
+              <li>Подготовка и сдача обязательной отчётности</li>
+              <li>Учёт расчётов с контрагентами (дебиторка/кредиторка)</li>
+              <li>Кадровый и зарплатный блок по директору (если начисляется вознаграждение/зарплата)</li>
+              <li>Консультации по текущим вопросам в рамках обслуживания</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="card" id="edo">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Электронная отчётность, ЭДО и ЭЦП — отдельно</h2>
+              <span class="badge"><span class="chip"></span><strong>Важно</strong></span>
+            </div>
+
+            <div class="callout" role="note">
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 9v4m0 4h.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H9L5 8v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p>
+                Электронная отчётность, ЭДО и ЭЦП оплачиваются отдельно и <strong>не входят</strong> в абонентскую плату.
+              </p>
+            </div>
+
+            <p class="text">При этом в рамках сопровождения мы делаем:</p>
+            <ul class="list">
+              <li>анализ провайдеров (электронная отчётность/ЭДО)</li>
+              <li>подбор оптимального тарифа под ваш объём документов и контрагентов</li>
+              <li>рекомендации по подключению и организации обмена документами</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="card" id="trade">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Важное условие по импорту/экспорту</h2>
+              <span class="badge"><span class="chip"></span><strong>Индивидуально</strong></span>
+            </div>
+
+            <div class="callout" role="note">
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 12h18M12 3v18M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p>
+                При наличии экспорта и/или импорта (в т.ч. ЕАЭС/вне ЕАЭС) стоимость обслуживания может увеличиваться
+                и рассматривается индивидуально, так как появляется дополнительный объём учёта и обязательных контрольных процедур.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="card" id="format">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Формат работы</h2>
+              <span class="badge"><span class="chip"></span><strong>Процесс</strong></span>
+            </div>
+
+            <ul class="list">
+              <li>Работа по договору, фиксируем состав услуг и сроки.</li>
+              <li>Обмен документами: через ЭДО/почту/облачную папку (как удобно).</li>
+              <li>Сдача отчётности в электронном виде через выбранного оператора.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <!-- RIGHT: pricing / summary -->
+      <aside class="mini-grid" aria-label="Стоимость и резюме">
+        <!-- 3 -->
+        <article class="card" id="price">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2> Стоимость</h2>
+              <span class="badge"><span class="chip"></span><strong>Фикс</strong></span>
+            </div>
+
+            <div class="price" aria-label="Абонентская плата">
+              <div class="amount">10&nbsp;000&nbsp;₽ / месяц</div>
+              <div class="meta">
+                Стоимость рассчитана на заявленный объём: <strong>до 20 комплектов документов </strong>
+              </div>
+            </div>
+
+            <div class="callout" role="note" aria-label="Что включено по умолчанию">
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p>
+                Включает стандартный объём сопровождения по ОСНО/НДС и регулярную отчётность в рамках заявленного документооборота.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Summary -->
+        <article class="card" aria-label="Коротко о выгодах">
+          <div class="card-inner">
+            <div class="card-head">
+              <h2>Ключевые преимущества</h2>
+              <span class="badge"><span class="chip"></span><strong>Акценты</strong></span>
+            </div>
+
+            <ul class="list">
+              <li><strong>Прозрачный состав услуг</strong> — фиксируем по договору.</li>
+              <li><strong>Контроль сроков</strong> — налоги и отчётность в регламенте.</li>
+              <li><strong>Понятный обмен документами</strong> — ЭДО/почта/облако.</li>
+              <li><strong>Поддержка по ЭДО</strong> — анализ и подбор тарифов (оплата операторов отдельно).</li>
+            </ul>
+          </div>
+        </article>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      © Коммерческое предложение • HTML-версия для отправки клиенту
+    </footer>
+  </div>
+</body>
+</html>
